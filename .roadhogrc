@@ -1,25 +1,50 @@
 {
-  "entry": "src/index.js",
-  "env": {
-    "development": {
-      "extraBabelPlugins": [
-        "dva-hmr",
-        "transform-runtime",
-        ["import", { "libraryName": "antd", "style": "css" }]
-      ]
-    },
-    "production": {
-      "extraBabelPlugins": [
-        "transform-runtime",
-        ["import", { "libraryName": "antd", "style": "css" }]
-      ]
-    }
-  }
+  // "entry": "src/index.js",
+  "multipage": true,
+  "entry": {
+    "app": "./src/index.js",
+    "common": "./src/vendor.js"
+  },
+  "disableCSSModules": false,
+  "publicPath": "/",
+  "theme": {
+    "@primary-color": "#1DA57A",
+    "@link-color": "#1DA57A",
+    "@border-radius-base": "2px",
+    "@font-size-base": "16px",
+    "@line-height-base": "1.2"
+  },
+  "autoprefixer": null,
   // "proxy": {
   //   "/api": {
   //     "target": "http://jsonplaceholder.typicode.com/",
   //     "changeOrigin": true,
   //     "pathRewrite": { "^/api" : "" }
   //   }
-  // }
+  // },
+  "extraBabelPlugins": [
+    "transform-runtime",
+    ["import", { "libraryName": "antd", "style": true }]
+  ],
+  "env": {
+    "development": {
+      "extraBabelPlugins": [
+        "dva-hmr"
+      ]
+    },
+    "production": {
+      "extraBabelPlugins": [
+      ]
+    }
+  },
+  "xdllPlugin": {
+    "exclude": [
+      "babel-runtime"
+    ],
+    "include": [
+      "dva/router",
+      "dva/saga",
+      "dva/fetch"
+    ]
+  }
 }

@@ -1,10 +1,21 @@
 import React from 'react';
 import { Router, Route, Switch } from 'dva/router';
-import IndexPage from './routes/IndexPage';
+import dynamic from 'dva/dynamic'
 
-import Users from "./routes/Users.js";
+function RouterConfig({ history, app }) {
+  const IndexPage = dynamic({
+    app,
+    component: () => import('./routes/IndexPage')
+  })
 
-function RouterConfig({ history }) {
+  const Users = dynamic({
+    app,
+    models: () => [
+      import('./models/users')
+    ],
+    component: () => import('./routes/Users')
+  })
+
   return (
     <Router history={history}>
       <Switch>
